@@ -37,8 +37,8 @@ public class Application implements CommandLineRunner{
         
         repository.deleteAll();
         
-        repository.save(new Customer("Skinner", "Walter"));
-        repository.save(new Customer("Skinner", "Tatiana"));
+        repository.save(new Customer("Smith", "Walter"));
+        repository.save(new Customer("Smith", "Tatiana"));
     }
     
     
