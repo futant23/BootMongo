@@ -67,7 +67,7 @@ public class CustomerController {
 //    }
     
     @RequestMapping(method =RequestMethod.GET)
-    public String findAll() {
+    public String findAll() throws JAXBException {
         Customers customers =new Customers();
         List<Customer> list =repository.findAll();
         customers.setCustomers(list);
