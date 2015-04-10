@@ -30,6 +30,10 @@ public class Customers {
     public void add(Customer customer) {
         this.customers.add(customer);
     }
+    
+    public void add(List<Customer> customers) {
+        this.customers.addAll(customers);
+    }
 
     public List<Customer> getCustomers() {
         return customers;

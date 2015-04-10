@@ -27,52 +27,31 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Ian
  */
 @RestController
-@RequestMapping("/api/customer")
+//@RequestMapping("/api/customer")
 public class CustomerController {
         
     private static final Logger log =LoggerFactory.getLogger(CustomerController.class);
 
     private CustomerRepository repository;
-    
-    private CustomerTransformer customerTransformer;
-    
-    private CustomersTransformer customersTransformer;
 
     @Autowired
     public CustomerController(CustomerRepository repository) {
         this.repository = repository;
-        this.customerTransformer =new CustomerTransformer();
-        this.customersTransformer =new CustomersTransformer();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value="/api/customer", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public String create(@RequestBody String xml) throws JAXBException {
-        log.info("create: "+xml);
-        Customer customer =customerTransformer.fromXml(xml);
+    public Customer create(@RequestBody Customer customer) throws JAXBException {
+        log.info("create: "+customer);
         repository.save(customer);
-        return customerTransformer.toXml(customer);
+        return customer;
     }
-    
-//    public String delete(String id) {
-//        
-//    }
-//    
-//    public String update(String xml) {
-//        
-//    }
-    
-//    public String find(String id) {
-//        
-//    }
-    
-    @RequestMapping(method =RequestMethod.GET)
-    public String findAll() throws JAXBException {
+
+    @RequestMapping(value="/api/customers", method =RequestMethod.GET)
+    public Customers findAll() throws JAXBException {
         Customers customers =new Customers();
         List<Customer> list =repository.findAll();
-        customers.setCustomers(list);
-        return customersTransformer.toXml(customers);
+        customers.add(list);
+       return customers;
     }
-    
-    
 }
